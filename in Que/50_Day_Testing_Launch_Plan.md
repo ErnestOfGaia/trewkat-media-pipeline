@@ -5,7 +5,7 @@ I’ve spent the last few weeks in a "Spring Sprint," building out a specialized
 Starting today, I am opening the digital doors for **50 days of open testing**. I want you to jump in, break things, and tell me where these agents are helpful—and where they trip up [cite: 1.0].
 
 ## 🛠️ The Agent Roster
-* **The Librarian 📜**: A storyteller-flavored guide to my work history and philosophy at `resume.ernestofgaia.xyz` [cite: 1.0].
+* **The Librarian 📜**: A storyteller-flavored guide to my work history and philosophy at `resume.ernestofgaia.xyz`.
 * **The Marketer & Secretary ⚙️**: Grounded helpers at `ernestofgaia.xyz` ready to explain my services or help you find a time to chat [cite: 1.0].
 
 ## 🧠 Under the Hood (The Tech Specs)
