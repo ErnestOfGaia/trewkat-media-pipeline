@@ -1,6 +1,6 @@
 # Editor Guide: Media Pipeline & Launch Plan Review
 
-Welcome to the **Ernest Of Gaia** media pipeline. Your role is to ensure that our public-facing launch content is polished, on-brand, and technically accurate before we begin the **50-Day Open Testing** phase.
+Welcome to the **Trewkat** media pipeline. Your role is to ensure that our public-facing launch content is polished, on-brand, and technically accurate before we begin the **50-Day Open Testing** phase.
 
 ## 📁 Document for Review
 **File Path:** `50_Day_Testing_Launch_Plan.md`
