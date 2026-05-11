@@ -1,0 +1,159 @@
+here’s a baby-step blueprint for a local-first Hermes publication system using Obsidian + LM Studio + Docker Desktop + optional Anthropic fallback. Hermes supports persistent memory via MEMORY.md and USER.md, and it can read/write an Obsidian vault through its bundled Obsidian skill on Windows, macOS, and Linux. Hermes also supports LM Studio as a first-class provider, and the Dockerized Hermes Workspace repo lists Docker, Docker Compose, and an Anthropic API key as prerequisites for that stack.
+
+Target setup
+Use this stack:
+
+Obsidian vault for brand docs, templates, and publication content.
+
+Hermes persistent memory for short, stable rules.
+
+LM Studio for local models by default.
+
+Anthropic API key as a fallback for higher-quality runs.
+
+Docker Desktop only if you want the Hermes Workspace container setup.
+
+Exact folder structure
+Use this on your Windows machine:
+
+text
+C:\Users\<you>\Documents\Hermes-Publishing\
+├─ Obsidian-Vault\
+│  ├─ 00-Brand/
+│  │  ├─ Brand-Bible.md
+│  │  ├─ Voice-Guide.md
+│  │  ├─ Do-Not-Say.md
+│  │  └─ Approved-Phrases.md
+│  ├─ 01-Templates/
+│  │  ├─ Blog-Template.md
+│  │  ├─ Social-Template.md
+│  │  └─ Newsletter-Template.md
+│  ├─ 02-Projects/
+│  │  └─ Current-Campaign.md
+│  ├─ 03-Calendar/
+│  │  └─ Publication-Cadence.md
+│  ├─ 04-Outputs/
+│  │  ├─ Drafts/
+│  │  ├─ Ready-To-Publish/
+│  │  └─ Archived/
+│  └─ 99-Inbox/
+├─ Hermes-Notes/
+│  ├─ MEMORY.md
+│  └─ USER.md
+└─ Logs/
+This structure keeps your brand rules separate from drafts, and it gives Hermes a small, stable memory layer plus a larger human-readable vault.
+
+Step 1: Install Obsidian
+Install Obsidian and create the vault at ...\Hermes-Publishing\Obsidian-Vault. Hermes’s Obsidian skill expects a real vault path, and the docs say the default fallback is ~/Documents/Obsidian Vault if no path is set.
+
+Step 2: Create your brand notes
+Create these starter files first:
+
+00-Brand/Brand-Bible.md
+
+00-Brand/Voice-Guide.md
+
+00-Brand/Do-Not-Say.md
+
+01-Templates/Blog-Template.md
+
+03-Calendar/Publication-Cadence.md
+
+Keep them short, concrete, and reusable. Hermes memory is bounded and works best when the truly important rules are compact and stable.
+
+Step 3: Set up Hermes memory
+Hermes uses two built-in memory files: MEMORY.md for environment/project facts and USER.md for your preferences, and they live in ~/.hermes/memories/. For your workflow, you can treat them like this:
+
+MEMORY.md = local system facts, folder paths, workflow conventions.
+
+USER.md = your preferences, such as “keep marketing tone calm, clear, and brand-safe.”
+
+Keep these entries short, because Hermes enforces character limits and loads them into the session context at startup.
+
+Step 4: Install LM Studio
+Install LM Studio and start its local server. Hermes’s LM Studio integration says to run LM Studio as a server on the default port 1234, then use it as the provider during Hermes setup. The LM Studio docs say Hermes supports LM Studio as a first-class provider with up to 64K context and reasoning-effort support.
+
+Step 5: Decide whether to use Docker Desktop
+If you want the simplest local workflow, you can skip Docker and use native Hermes plus LM Studio. If you want the cleanest packaged setup, use Docker Desktop and the Hermes Workspace repo, which says its Docker stack runs the Hermes Agent gateway and Hermes Workspace together.
+
+Step 6: Configure Hermes provider
+For your case, I’d set LM Studio as the default provider and Anthropic as the fallback. Hermes’s provider docs list both LM Studio and Anthropic as supported providers, and it says you need at least one provider configured to use Hermes.
+
+Step 7: Connect the vault
+Point Hermes at your Obsidian vault path using the documented OBSIDIAN_VAULT_PATH convention. For example, if your vault is:
+
+text
+C:\Users\<you>\Documents\Hermes-Publishing\Obsidian-Vault
+then Hermes should use that exact absolute path, not a variable string, when interacting with the vault.
+
+Step 8: Create your memory files
+Put this in Hermes-Notes\MEMORY.md:
+
+text
+Local workflow:
+- Obsidian vault path: C:\Users\<you>\Documents\Hermes-Publishing\Obsidian-Vault
+- LM Studio is default provider
+- Anthropic is fallback only
+- Publication drafts go in 04-Outputs\Drafts
+- Ready items go in 04-Outputs\Ready-To-Publish
+Put this in Hermes-Notes\USER.md:
+
+text
+Preferences:
+- Prefer concise, brand-safe marketing copy
+- Keep output organized by publication type
+- Use consistent terminology and headings
+- Ask before changing brand rules
+This fits Hermes’s memory model well because it is designed for compact, curated, session-persistent notes.
+
+Step 9: Build your cadence file
+In 03-Calendar/Publication-Cadence.md, define a simple schedule like:
+
+text
+Weekly cadence:
+- Monday: outline
+- Tuesday: draft
+- Wednesday: revise
+- Thursday: finalize
+- Friday: publish
+
+When the local machine is on:
+- Generate the next scheduled item
+- Update draft notes
+- Move finished items to Ready-To-Publish
+That matches your “not 24/7” requirement because you can run the process only when your machine is on and stop it afterward.
+
+Step 10: Use Anthropic only when needed
+Since you already have an Anthropic API key, use it as your quality fallback rather than your default. That way you keep local costs low most of the time, but still have a strong cloud model ready for final drafts or heavier reasoning.
+
+Best starter workflow
+Open Obsidian.
+
+Start LM Studio server.
+
+Start Hermes.
+
+Ask Hermes to read Brand-Bible.md and Voice-Guide.md.
+
+Generate the draft into 04-Outputs/Drafts.
+
+Review in Obsidian.
+
+If needed, rerun with Anthropic for a polished version.
+
+What I would do first
+If you want the least confusing path, I’d do this order:
+
+Install Obsidian.
+
+Create the folder structure above.
+
+Write MEMORY.md and USER.md.
+
+Install LM Studio and confirm the local server runs.
+
+Set up Hermes with LM Studio.
+
+Add Anthropic as backup.
+
+Only then consider Docker Desktop if you want the containerized workspace
